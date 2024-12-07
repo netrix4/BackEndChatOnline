@@ -17,9 +17,9 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
-const NodeCouchDB = require("node-couchdb");
+const NodeCouchDb = require("node-couchdb");
 
-const couch = new NodeCouchDB(
+const couch = new NodeCouchDb(
   // {
   //   auth: {
   //     user: "olan",
@@ -27,18 +27,21 @@ const couch = new NodeCouchDB(
   //   },
   // },
   {
-    // auth: {
-    //   user: "olan",
-    //   password: "olan11",
-    // },
     host: "10.4.8.44",
     protocol: "http",
     port: "5984",
+    auth: {
+      user: "olan",
+      password: "olan11",
+    },
   }
 );
 
+// const dbname = "chatonline";
 const dbname = "chatonlineprofiles";
 // const viewUrl = "_design/all_customers/_view/all";
+
+// const viewUrl = "_design/all_chats/_view/all";
 const viewUrl = "_design/all_chatprofiles/_view/all";
 
 //Creo que tambien podria ser:
@@ -46,9 +49,9 @@ const viewUrl = "_design/all_chatprofiles/_view/all";
 
 console.log(couch);
 
-couch.listDatabases().then(function(dbs) {
+couch.listDatabases().then(function (dbs) {
   console.log(dbs);
-  console.log('temp')
+  console.log("temp");
 });
 
 const app = express();
@@ -63,10 +66,10 @@ app.get("/", function (req, res) {
   //   res.render("index");
   couch.get(dbname, viewUrl).then(
     function (data, headers, status) {
-      // console.log(data);
+      console.log(data);
       // console.log(data.data.rows);       //esto esta amarrado a la vista de couch db
       res.render("index", {
-        customers: data.data.rows,
+        // customers: data.data.rows,
       });
     },
     function (err) {

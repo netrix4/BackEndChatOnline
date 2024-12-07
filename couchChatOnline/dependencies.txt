@@ -1,0 +1,6 @@
+npm install express body-parser ejs node-couchdb --save
+
+
+ssh olan@10.4.8.44
+
+curl -X GET http://olan@olan:10.4.8.44:5984/chatonline/
